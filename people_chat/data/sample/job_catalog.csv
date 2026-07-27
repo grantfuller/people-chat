@@ -1,0 +1,118 @@
+Job Code,Position Title,Department,Division,Job Family,Active or Inactive,Radford Level,Benchmarking Code One,Benchmarking One Percentage,Benchmarking Code Two,Benchmarking Two Percentage,Band Number,Range Min,Quartile One Top,Mid,Quartile Three Top,Max,Set Rate,AIP or Commissions,AIP Percentage,Commissions,Hourly or Salary,Exemption Status,EEOC Category,Job Description Link,Equity Structure
+100,Junior Software Engineer,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,P1,,,,,1,55000,62500,70000,77500,85000,,AIP,20,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/100,
+101,Software Engineer,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,P2,,,,,2,80000,90000,100000,110000,120000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/101,
+102,Senior Software Engineer,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,P3,,,,,3,105000,116250,127500,138750,150000,,None,10,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/102,
+103,Staff Software Engineer,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,P4,,,,,4,135000,147500,160000,172500,185000,,AIP,5,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/103,
+104,Principal Software Engineer,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,10,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/104,Options
+105,Engineering Manager,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/105,Options
+106,Senior Engineering Manager,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/106,RSU
+107,Director of Engineering,DevOps & Infrastructure,Engineering & Technology,Engineering,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/107,RSU
+108,Junior Designer,Product Design,Product,Design,Active,P1,,,,,1,55000,62500,70000,77500,85000,,AIP,0,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/108,
+109,Designer,Product Design,Product,Design,Active,P2,,,,,2,80000,90000,100000,110000,120000,,None,5,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/109,Options
+110,Senior Designer,Product Design,Product,Design,Active,P3,,,,,3,105000,116250,127500,138750,150000,,Commissions,0,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/110,Options
+111,Staff Designer,Product Design,Product,Design,Active,P4,,,,,4,135000,147500,160000,172500,185000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/111,Options
+112,Principal Designer,Product Design,Product,Design,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,0,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/112,
+113,Design Manager,Product Design,Product,Design,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/113,Options
+114,Senior Design Manager,Product Design,Product,Design,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/114,RSU
+115,Director of Design,Product Design,Product,Design,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/115,Options
+116,Associate Product Manager,Product Management,Product,Product Management,Active,P1,,,,,1,55000,62500,70000,77500,85000,,None,10,0,Salary,Non-Exempt,Sales Workers,https://internal.theguild.com/jobs/116,
+117,Product Manager,Product Management,Product,Product Management,Active,P2,,,,,2,80000,90000,100000,110000,120000,,Commissions,10,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/117,RSU
+118,Senior Product Manager,Product Management,Product,Product Management,Active,P3,,,,,3,105000,116250,127500,138750,150000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/118,RSU
+119,Staff Product Manager,Product Management,Product,Product Management,Active,P4,,,,,4,135000,147500,160000,172500,185000,,AIP,5,0,Salary,Non-Exempt,Office & Clerical,https://internal.theguild.com/jobs/119,Options
+120,Principal Product Manager,Product Management,Product,Product Management,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,5,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/120,
+121,Operations Manager,Product Management,Product,Product Management,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/121,RSU
+122,Senior Ops Manager,Product Management,Product,Product Management,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/122,RSU
+123,Director of Operations,Product Management,Product,Product Management,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/123,Options
+124,Junior Data Analyst,Program Management,Operations,Data & Analytics,Active,P1,,,,,1,55000,62500,70000,77500,85000,,Commissions,5,0,Salary,Non-Exempt,Office & Clerical,https://internal.theguild.com/jobs/124,RSU
+125,Data Analyst,Program Management,Operations,Data & Analytics,Active,P2,,,,,2,80000,90000,100000,110000,120000,,None,5,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/125,
+126,Senior Data Analyst,Program Management,Operations,Data & Analytics,Active,P3,,,,,3,105000,116250,127500,138750,150000,,None,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/126,Options
+127,Lead Data Analyst,Program Management,Operations,Data & Analytics,Active,P4,,,,,4,135000,147500,160000,172500,185000,,None,10,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/127,
+128,Principal Data Scientist,Program Management,Operations,Data & Analytics,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,10,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/128,RSU
+129,Distinguished Data Scientist,Program Management,Operations,Data & Analytics,Active,P6,,,,,6,210000,237500,265000,292500,320000,,AIP,5,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/129,Options
+130,Analytics Manager,Program Management,Operations,Data & Analytics,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/130,RSU
+131,Senior Analytics Manager,Program Management,Operations,Data & Analytics,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/131,RSU
+132,Director of Analytics,Program Management,Operations,Data & Analytics,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/132,RSU
+133,Senior Director of Analytics,Program Management,Operations,Data & Analytics,Active,M4,,,,,4,210000,232500,255000,277500,300000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/133,RSU
+134,Marketing Coordinator,Demand Generation,Marketing,Marketing,Active,P1,,,,,1,55000,62500,70000,77500,85000,,AIP,20,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/134,
+135,Marketing Specialist,Demand Generation,Marketing,Marketing,Active,P2,,,,,2,80000,90000,100000,110000,120000,,Commissions,10,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/135,
+136,Senior Marketing Manager,Demand Generation,Marketing,Marketing,Active,P3,,,,,3,105000,116250,127500,138750,150000,,Commissions,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/136,
+137,Associate Director of Marketing,Demand Generation,Marketing,Marketing,Active,P4,,,,,4,135000,147500,160000,172500,185000,,Commissions,0,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/137,Options
+138,Director of Marketing,Demand Generation,Marketing,Marketing,Active,P5,,,,,5,170000,187500,205000,222500,240000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/138,Options
+139,Marketing Manager,Demand Generation,Marketing,Marketing,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/139,Options
+140,Senior Marketing Manager,Demand Generation,Marketing,Marketing,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/140,RSU
+141,Director of Marketing,Demand Generation,Marketing,Marketing,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/141,Options
+142,Sales Development Representative,Enterprise Sales,Sales & Revenue,Sales,Active,P1,,,,,1,55000,62500,70000,77500,85000,,AIP,15,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/142,RSU
+143,Account Executive,Enterprise Sales,Sales & Revenue,Sales,Active,P2,,,,,2,80000,90000,100000,110000,120000,,AIP,0,10000,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/143,RSU
+144,Senior Account Executive,Enterprise Sales,Sales & Revenue,Sales,Active,P3,,,,,3,105000,116250,127500,138750,150000,,None,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/144,RSU
+145,Enterprise Account Executive,Enterprise Sales,Sales & Revenue,Sales,Active,P4,,,,,4,135000,147500,160000,172500,185000,,None,10,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/145,Options
+146,Principal Account Executive,Enterprise Sales,Sales & Revenue,Sales,Active,P5,,,,,5,170000,187500,205000,222500,240000,,Commissions,10,10000,Salary,Non-Exempt,Professionals,https://internal.theguild.com/jobs/146,
+147,Sales Manager,Enterprise Sales,Sales & Revenue,Sales,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/147,Options
+148,Senior Sales Manager,Enterprise Sales,Sales & Revenue,Sales,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/148,Options
+149,Director of Sales,Enterprise Sales,Sales & Revenue,Sales,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,30,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/149,RSU
+150,Customer Success Associate,Customer Support,Customer Success,Customer Success,Active,P1,,,,,1,55000,62500,70000,77500,85000,,None,5,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/150,RSU
+151,Customer Success Manager,Customer Support,Customer Success,Customer Success,Active,P2,,,,,2,80000,90000,100000,110000,120000,,AIP,5,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/151,RSU
+152,Senior Customer Success Manager,Customer Support,Customer Success,Customer Success,Active,P3,,,,,3,105000,116250,127500,138750,150000,,Commissions,5,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/152,RSU
+153,CS Team Lead,Customer Support,Customer Success,Customer Success,Active,P4,,,,,4,135000,147500,160000,172500,185000,,None,5,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/153,Options
+154,Principal CS Manager,Customer Support,Customer Success,Customer Success,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,5,0,Salary,Non-Exempt,Office & Clerical,https://internal.theguild.com/jobs/154,
+155,CS Manager,Customer Support,Customer Success,Customer Success,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/155,Options
+156,Senior CS Manager,Customer Support,Customer Success,Customer Success,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/156,RSU
+157,Director of Customer Success,Customer Support,Customer Success,Customer Success,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/157,RSU
+158,Finance Associate,Compliance,G&A,Finance,Active,P1,,,,,1,55000,62500,70000,77500,85000,,AIP,20,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/158,Options
+159,Financial Analyst,Compliance,G&A,Finance,Active,P2,,,,,2,80000,90000,100000,110000,120000,,Commissions,0,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/159,
+160,Senior Financial Analyst,Compliance,G&A,Finance,Active,P3,,,,,3,105000,116250,127500,138750,150000,,AIP,15,0,Salary,Non-Exempt,Technicians,https://internal.theguild.com/jobs/160,Options
+161,Finance Manager,Compliance,G&A,Finance,Active,P4,,,,,4,135000,147500,160000,172500,185000,,AIP,10,0,Salary,Non-Exempt,Technicians,https://internal.theguild.com/jobs/161,RSU
+162,Senior Finance Manager,Compliance,G&A,Finance,Active,P5,,,,,5,170000,187500,205000,222500,240000,,AIP,10,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/162,RSU
+163,Finance Manager,Compliance,G&A,Finance,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,30,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/163,Options
+164,Senior Finance Manager,Compliance,G&A,Finance,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/164,Options
+165,Director of Finance,Compliance,G&A,Finance,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/165,RSU
+166,P1 - Legal,Compliance,G&A,Legal,Active,P1,,,,,1,55000,62500,70000,77500,85000,,None,5,0,Salary,Non-Exempt,Professionals,https://internal.theguild.com/jobs/166,
+167,P2 - Legal,Compliance,G&A,Legal,Active,P2,,,,,2,80000,90000,100000,110000,120000,,None,5,0,Salary,Non-Exempt,Sales Workers,https://internal.theguild.com/jobs/167,RSU
+168,P3 - Legal,Compliance,G&A,Legal,Active,P3,,,,,3,105000,116250,127500,138750,150000,,None,10,0,Salary,Non-Exempt,Executives,https://internal.theguild.com/jobs/168,RSU
+169,P4 - Legal,Compliance,G&A,Legal,Active,P4,,,,,4,135000,147500,160000,172500,185000,,None,5,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/169,
+170,P5 - Legal,Compliance,G&A,Legal,Active,P5,,,,,5,170000,187500,205000,222500,240000,,AIP,15,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/170,
+171,Operations Manager,Compliance,G&A,Legal,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/171,RSU
+172,Senior Ops Manager,Compliance,G&A,Legal,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/172,RSU
+173,Director of Operations,Compliance,G&A,Legal,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,30,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/173,Options
+174,HR Coordinator,Finance,G&A,Human Resources,Active,P1,,,,,1,55000,62500,70000,77500,85000,,None,5,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/174,Options
+175,HR Generalist,Finance,G&A,Human Resources,Active,P2,,,,,2,80000,90000,100000,110000,120000,,AIP,20,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/175,
+176,Senior HR Business Partner,Finance,G&A,Human Resources,Active,P3,,,,,3,105000,116250,127500,138750,150000,,None,5,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/176,
+177,HRBP Lead,Finance,G&A,Human Resources,Active,P4,,,,,4,135000,147500,160000,172500,185000,,None,20,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/177,
+178,Principal People Partner,Finance,G&A,Human Resources,Active,P5,,,,,5,170000,187500,205000,222500,240000,,Commissions,5,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/178,
+179,HR Manager,Finance,G&A,Human Resources,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/179,RSU
+180,Senior HR Manager,Finance,G&A,Human Resources,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/180,Options
+181,Director of People,Finance,G&A,Human Resources,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/181,RSU
+182,Operations Associate,Program Management,Operations,Operations,Active,P1,,,,,1,55000,62500,70000,77500,85000,,None,5,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/182,
+183,Operations Analyst,Program Management,Operations,Operations,Active,P2,,,,,2,80000,90000,100000,110000,120000,,None,10,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/183,
+184,Senior Operations Analyst,Program Management,Operations,Operations,Active,P3,,,,,3,105000,116250,127500,138750,150000,,AIP,10,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/184,Options
+185,Operations Manager,Program Management,Operations,Operations,Active,P4,,,,,4,135000,147500,160000,172500,185000,,None,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/185,RSU
+186,Senior Operations Manager,Program Management,Operations,Operations,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,5,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/186,
+187,Operations Manager,Program Management,Operations,Operations,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/187,Options
+188,Senior Ops Manager,Program Management,Operations,Operations,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/188,RSU
+189,Director of Operations,Program Management,Operations,Operations,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/189,RSU
+190,Security Analyst I,Data Engineering,Engineering & Technology,Security,Active,P1,,,,,1,55000,62500,70000,77500,85000,,None,5,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/190,RSU
+191,Security Analyst II,Data Engineering,Engineering & Technology,Security,Active,P2,,,,,2,80000,90000,100000,110000,120000,,Commissions,15,0,Salary,Non-Exempt,Sales Workers,https://internal.theguild.com/jobs/191,RSU
+192,Senior Security Analyst,Data Engineering,Engineering & Technology,Security,Active,P3,,,,,3,105000,116250,127500,138750,150000,,AIP,5,0,Salary,Non-Exempt,Sales Workers,https://internal.theguild.com/jobs/192,
+193,Security Engineer,Data Engineering,Engineering & Technology,Security,Active,P4,,,,,4,135000,147500,160000,172500,185000,,AIP,10,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/193,
+194,Principal Security Engineer,Data Engineering,Engineering & Technology,Security,Active,P5,,,,,5,170000,187500,205000,222500,240000,,None,15,0,Salary,Non-Exempt,Executives,https://internal.theguild.com/jobs/194,
+195,Operations Manager,Data Engineering,Engineering & Technology,Security,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/195,Options
+196,Senior Ops Manager,Data Engineering,Engineering & Technology,Security,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,15,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/196,RSU
+197,Director of Operations,Data Engineering,Engineering & Technology,Security,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/197,RSU
+198,Senior Director of Ops,Data Engineering,Engineering & Technology,Security,Active,M4,,,,,4,210000,232500,255000,277500,300000,,AIP,30,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/198,RSU
+199,S1 - IT,Quality Assurance,Engineering & Technology,IT,Active,S1,,,,,1,30000,33750,37500,41250,45000,,None,5,0,Salary,Exempt,Sales Workers,https://internal.theguild.com/jobs/199,Options
+200,S2 - IT,Quality Assurance,Engineering & Technology,IT,Active,S2,,,,,2,38000,42250,46500,50750,55000,,AIP,10,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/200,RSU
+201,S3 - IT,Quality Assurance,Engineering & Technology,IT,Active,S3,,,,,3,45000,51250,57500,63750,70000,,AIP,10,0,Salary,Non-Exempt,Executives,https://internal.theguild.com/jobs/201,RSU
+202,S4 - IT,Quality Assurance,Engineering & Technology,IT,Active,S4,,,,,4,55000,62500,70000,77500,85000,,AIP,5,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/202,Options
+203,S5 - IT,Quality Assurance,Engineering & Technology,IT,Active,S5,,,,,5,70000,77500,85000,92500,100000,,AIP,5,0,Salary,Exempt,Office & Clerical,https://internal.theguild.com/jobs/203,RSU
+204,IT Support Associate,Quality Assurance,Engineering & Technology,IT,Active,P1,,,,,1,55000,62500,70000,77500,85000,,AIP,10,0,Salary,Exempt,Professionals,https://internal.theguild.com/jobs/204,Options
+205,IT Support Specialist,Quality Assurance,Engineering & Technology,IT,Active,P2,,,,,2,80000,90000,100000,110000,120000,,AIP,0,0,Salary,Non-Exempt,Technicians,https://internal.theguild.com/jobs/205,
+206,Senior IT Specialist,Quality Assurance,Engineering & Technology,IT,Active,P3,,,,,3,105000,116250,127500,138750,150000,,None,10,0,Salary,Exempt,Technicians,https://internal.theguild.com/jobs/206,
+207,IT Manager,Quality Assurance,Engineering & Technology,IT,Active,M1,,,,,1,120000,132500,145000,157500,170000,,AIP,10,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/207,Options
+208,Senior IT Manager,Quality Assurance,Engineering & Technology,IT,Active,M2,,,,,2,150000,165000,180000,195000,210000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/208,RSU
+209,Director of IT,Quality Assurance,Engineering & Technology,IT,Active,M3,,,,,3,175000,193750,212500,231250,250000,,AIP,20,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/209,Options
+210,CEO,Corporate Strategy,Operations,Executive,Active,E6,,,,,6,1500000,2375000,3250000,4125000,5000000,,AIP,40,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/210,RSU
+211,CFO,Finance,G&A,Executive,Active,E1,,,,,1,300000,350000,400000,450000,500000,,AIP,40,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/211,RSU
+212,General Counsel,Legal,G&A,Executive,Active,E2,,,,,2,400000,475000,550000,625000,700000,,AIP,50,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/212,RSU
+213,CTO,Architecture,Engineering & Technology,Executive,Active,E3,,,,,3,500000,600000,700000,800000,900000,,AIP,40,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/213,RSU
+214,CMO,Corporate Communications,Marketing,Executive,Active,E4,,,,,4,600000,750000,900000,1050000,1200000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/214,RSU
+215,CRO,Revenue Operations,Sales & Revenue,Executive,Active,E5,,,,,5,800000,1100000,1400000,1700000,2000000,,AIP,25,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/215,RSU
+216,COO,Corporate Strategy,Operations,Executive,Active,E6,,,,,6,1500000,2375000,3250000,4125000,5000000,,AIP,40,0,Salary,Exempt,Executives,https://internal.theguild.com/jobs/216,RSU
