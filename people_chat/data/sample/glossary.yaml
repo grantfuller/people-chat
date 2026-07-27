@@ -1,0 +1,134 @@
+data_source: hr_demo
+description: Auto-generated glossary for table 'employees'
+generated_at: '2026-07-27'
+columns:
+  'Employee #':
+    type: text
+    nullable: true
+    description: Unique employee identifier (e.g., EMP00001)
+  First Name:
+    type: text
+    nullable: true
+    description: Employee's legal first name (e.g., Alistair)
+  Preferred Name:
+    type: text
+    nullable: true
+    description: Name the employee prefers to go by
+  Last Name:
+    type: text
+    nullable: true
+    description: Employee's legal last name (e.g., Ironwood)
+  First Name Last Name:
+    type: text
+    nullable: true
+    description: ' (e.g., Alistair Ironwood)'
+  Job Title:
+    type: text
+    nullable: true
+    description: Current position title (e.g., CEO)
+  Department:
+    type: text
+    nullable: true
+    description: Department name (e.g., Engineering, Sales, Marketing) (e.g., Corporate Strategy)
+  Division:
+    type: text
+    nullable: true
+    description: Top-level organizational division (e.g., G&A, Product, Tech) (e.g., Operations)
+  Reporting to:
+    type: text
+    nullable: true
+    description: Manager's Employee ID
+  Hire Date:
+    type: date
+    nullable: true
+    description: Date employee started at the company (e.g., 2015-03-01)
+  Work Email:
+    type: text
+    nullable: true
+    description: Company email address (e.g., alistair.ironwood@theguild.com)
+  Birth Date:
+    type: date
+    nullable: true
+    description: Employee's date of birth (e.g., 1975-06-15)
+  Gender:
+    type: text
+    nullable: true
+    description: Employee gender identity (e.g., Male)
+  Employment Status:
+    type: text
+    nullable: true
+    description: Current employment status (Active, Terminated, etc.) (e.g., Active)
+  City:
+    type: text
+    nullable: true
+    description: ' (e.g., Salt Lake City)'
+  State:
+    type: text
+    nullable: true
+    description: ' (e.g., UT)'
+  Zip Code:
+    type: integer
+    nullable: true
+    description: ' (e.g., 84101)'
+  'Compensation: Date':
+    type: date
+    nullable: true
+    description: ' (e.g., 2026-01-01)'
+  Pay rate:
+    type: integer
+    nullable: true
+    description: Annual base salary in USD (e.g., 1500000)
+  Time Type:
+    type: text
+    nullable: true
+    description: How pay is calculated (Hourly or Salary) (e.g., Salary)
+  Exempt:
+    type: text
+    nullable: true
+    description: FLSA exemption status (Exempt or Non-Exempt) (e.g., Exempt)
+  Pay Schedule:
+    type: text
+    nullable: true
+    description: How often employee is paid (Bi-Weekly, Monthly, etc.) (e.g., Monthly)
+  Termination Date:
+    type: date
+    nullable: true
+    description: Date employee left the company. NULL = still employed.
+  Radford Level:
+    type: text
+    nullable: true
+    description: Radford job level (S1-S6, P1-P6, M1-M6, E1-E6) (e.g., E6)
+  Bonus Type:
+    type: text
+    nullable: true
+    description: Type of bonus plan (Annual Bonus, Commission, No Bonus) (e.g., Annual Bonus)
+  Bonus Amount:
+    type: integer
+    nullable: true
+    description: Annual bonus target amount in USD (e.g., 3000000)
+  EEID:
+    type: text
+    nullable: true
+    description: Enterprise employee ID (e.g., EEID00001)
+metrics:
+  headcount:
+    description: Total number of active employees
+    formula: COUNT(*) WHERE employment_status = 'Active'
+  turnover_rate:
+    description: Voluntary separations during a period divided by average headcount, expressed as a percentage
+    formula: (voluntary_exits_in_period / avg_headcount_in_period) * 100
+  avg_tenure_years:
+    description: Average employee tenure in years (based on hire date vs today or termination date)
+    formula: AVG(JULIANDAY(COALESCE(termination_date, CURRENT_DATE)) - JULIANDAY(hire_date)) / 365.25
+  compensation_ratio:
+    description: Salary divided by the midpoint of the salary band. 1.0 = paid at market rate.
+    formula: pay_rate / mid
+  gender_diversity:
+    description: Gender distribution across organization
+    formula: COUNT(*) GROUP BY gender
+  avg_salary_by_department:
+    description: Average salary grouped by department
+    formula: AVG(pay_rate) GROUP BY department
+  promotion_rate:
+    description: Percentage of employees who received a promotion in a period
+    formula: pending — needs job_history table
