@@ -4,6 +4,20 @@ SELECT COUNT(*) AS headcount
 FROM employees
 WHERE "Employment Status" = 'Active'
 
+-- Question: "How many total employees do we have (including terminated)?"
+-- SQL:
+SELECT COUNT(*) AS total_employees
+FROM employees
+
+-- Question: "How many employees are in each division?"
+-- SQL:
+SELECT "Division",
+       COUNT(*) AS employee_count
+FROM employees
+WHERE "Employment Status" = 'Active'
+GROUP BY "Division"
+ORDER BY employee_count DESC
+
 -- Question: "What's the average salary by department?"
 -- SQL:
 SELECT "Department",
@@ -76,21 +90,23 @@ ORDER BY "Radford Level"
 
 -- Question: "Show me employees with above-average salary in their department"
 -- SQL:
-SELECT e."First Name Last Name",
-       e."Job Title",
-       e."Department",
-       e."Pay rate" AS salary,
-       ROUND(dept.avg_dept_salary, 0) AS dept_avg,
-       ROUND((e."Pay rate" - dept.avg_dept_salary) / dept.avg_dept_salary * 100, 1) AS pct_above_avg
-FROM employees e
+-- Note: SQLite does not support table aliases in this context for simple queries.
+-- Using subquery with no table aliases.
+SELECT "First Name Last Name",
+       "Job Title",
+       "Department",
+       "Pay rate" AS salary,
+       ROUND(sub.avg_dept_salary, 0) AS dept_avg,
+       ROUND(("Pay rate" - sub.avg_dept_salary) / sub.avg_dept_salary * 100, 1) AS pct_above_avg
+FROM employees
 JOIN (
     SELECT "Department", AVG("Pay rate") AS avg_dept_salary
     FROM employees
     WHERE "Employment Status" = 'Active'
     GROUP BY "Department"
-) dept ON e."Department" = dept."Department"
-WHERE e."Employment Status" = 'Active'
-  AND e."Pay rate" > dept.avg_dept_salary
+) sub ON employees."Department" = sub."Department"
+WHERE "Employment Status" = 'Active'
+  AND "Pay rate" > sub.avg_dept_salary
 ORDER BY pct_above_avg DESC
 
 -- Question: "Show me headcount trend by year"

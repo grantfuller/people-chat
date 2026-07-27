@@ -5,77 +5,87 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]()
 
-People Chat is a CLI tool that connects to your HR data and lets you ask questions in plain English. It generates SQL queries using an LLM, executes them against your data, and returns results as tables or charts.
+Turn your HR data into answers. People Chat ingests employee CSVs, builds a searchable database, and lets you ask questions in plain English. It generates SQL queries using an LLM, executes them against your data, and returns results as tables or charts.
 
 ```bash
-# One-command demo (coming in Phase 6)
-# people-chat demo
+# One-command demo
+people-chat demo
 
-# Ask questions about your data
-# people-chat ask "Which department had the most turnover last quarter?"
-# people-chat ask "Show me employees with less than 5 days PTO"
-# people-chat ask "Chart headcount by month for 2025"
+# Or use your own data
+people-chat init ./employees.csv
+people-chat ask "Which department has the most turnover?"
+people-chat ask "Chart salary distribution by department"
+people-chat chat
 ```
 
-## Status
-
-**Phase 3 of 8 complete.** The query engine is working — you can ask natural language questions and get SQL-generated answers. CLI interface is next.
-
-## Quick Start (Developer Preview)
+## Quick Start
 
 ```bash
-# Clone and install
-git clone https://github.com/YOUR_USER/people-chat.git
-cd people-chat
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
-# Set up your LLM
-echo "LLM_API_KEY=your-key" > ~/.people-chat/.env
+pip install -e .
+echo "LLM_API_KEY=***" > ~/.people-chat/.env
 echo "LLM_PROVIDER=deepseek" >> ~/.people-chat/.env
 
-# Test with sample data
-python3 test_pipeline.py
+# Load your data
+people-chat init ./employees.csv
+
+# Start asking questions
+people-chat ask "How many active employees do we have?"
 ```
+
+## Features
+
+- 🗣️ **Natural language queries** — Ask in English, get answers
+- 📊 **Tables + charts** — Results formatted for humans, charts open in browser
+- 🏢 **HR-aware** — Understands turnover, comp-ratio, tenure, headcount
+- 🔌 **BYO LLM** — Works with DeepSeek, OpenAI, Anthropic, or local Ollama
+- 📁 **CSV ingestion** — Load any employee export
+- 🛡️ **SQL safety** — Read-only queries, injection protection, error recovery
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `init <csv>` | Ingest CSV into SQLite, generate glossary |
+| `ask <question>` | Ask one question |
+| `chat` | Interactive Q&A session |
+| `stats` | Show data overview |
+| `status` | Show configuration |
+| `demo` | One-command demo with sample data |
 
 ## Architecture
 
 ```
-CSV → SQLite → Schema + Glossary → LLM → SQL → Results
+CSV → SQLite → Schema + Glossary → LLM → SQL → Results → Table/Chart
 ```
-
-| Component | Module | Status |
-|-----------|--------|--------|
-| CSV Ingestion | ingestion.py | ✅ |
-| Schema Introspection | schema.py | ✅ |
-| Glossary Generation | glossary.py | ✅ |
-| LLM Provider Layer | llm.py + config.py | ✅ |
-| Query Engine | query_engine.py | ✅ |
-| CLI Interface | cli.py | 🔜 |
-| Output Formatting | formatter.py | 🔜 |
 
 ## LLM Providers
 
-| Provider | Env Setup | Cost |
-|----------|-----------|------|
+| Provider | Env Setup | Est. Cost |
+|----------|-----------|:---------:|
 | DeepSeek | `LLM_PROVIDER=deepseek` + API key | ~$0.02/query |
 | OpenAI | `LLM_PROVIDER=openai` + API key | ~$0.05/query |
 | Anthropic | `LLM_PROVIDER=anthropic` + API key | ~$0.08/query |
-| Ollama | `LLM_PROVIDER=ollama` (local) | Free |
+| Ollama | `LLM_PROVIDER=ollama` (local, free) | Free |
 
-## Roadmap
+## Project Status
 
-- **Phase 3 ✓** — Query engine (natural language → SQL → results)
-- **Phase 4** — Output formatting (tables with rich, charts with Plotly)
-- **Phase 5** — CLI interface (init, ask, chat commands)
-- **Phase 6** — Demo mode (one-command experience)
-- **Phase 7** — Documentation & polish
-- **Phase 8** — GitHub launch
+| Phase | Component | Status |
+|:-----|:----------|:------:|
+| 0 | Foundation | ✅ |
+| 1 | Data Ingestion | ✅ |
+| 2 | LLM Provider Layer | ✅ |
+| 3 | Query Engine | ✅ |
+| 4 | Output Formatting | ✅ |
+| 5 | CLI Interface | ✅ |
+| 6 | Demo Mode | 🔄 |
+| 7 | Documentation & Polish | ⏳ |
+| 8 | GitHub Launch | ⏳ |
 
 ## Demo Data
 
-The repo includes synthetic demo data for "The Guild" — a fantasy-themed tech company with 750 employees across 7 divisions and 48 departments. Generated from realistic Radford-level salary bands and job titles.
+Includes synthetic data for **The Guild** — 750 employees, 48 departments, 7 divisions.
+Company is D&D-themed (CEO: Alistair Ironwood, CTO: Dorian Blackthorn, etc.).
+Radford-level salary bands with realistic ranges.
 
 ## License
 

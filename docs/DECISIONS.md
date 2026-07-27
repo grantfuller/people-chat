@@ -97,3 +97,31 @@ Each entry includes the decision, rationale, alternatives considered, and date.
 - Phase 1: 4 days est. → 1 day actual ✅
 - Phase 2: 3 days est. → 1 day actual ✅
 - Phase 3: 7 days est. → 1 day actual ✅ (6-7x faster than estimated)
+
+---
+
+## 2026-07-27 — Phase 4 & 5 Implementation
+
+### Decision 17: Rich library for terminal tables
+**Rationale:** Python's best terminal formatting library. Handles column alignment, truncation, borders, and color. Falls back to text if not installed.
+**Alternative:** tabulate (less feature-rich), manual padding (more code to maintain).
+
+### Decision 18: Plotly for charts
+**Rationale:** Self-contained HTML output, dark theme support, interactive (zoom/hover), no server needed. Opens in browser automatically.
+**Alternative:** matplotlib (static, less attractive), seaborn (same issue), chart.js (requires Node/npm).
+
+### Decision 19: Argparse over Click/Typer
+**Rationale:** Zero new dependencies — argparse is stdlib. Only 6 simple commands, no need for Click's advanced features.
+**Tradeoff:** Slightly more boilerplate. Argparse requires `--db` before subcommand, which is non-obvious.
+
+### Decision 20: Default to active-only headcount
+**Rationale:** HR context — "how many employees" typically means "how many active." Total counts available with explicit "including terminated" or "total" language.
+
+### Project Timeline (Actual vs Plan)
+- Phase 0: 3 days est. → <1 day actual
+- Phase 1: 4 days est. → <1 day actual
+- Phase 2: 3 days est. → <1 day actual
+- Phase 3: 7 days est. → <1 day actual
+- Phase 4: 4 days est. → <1 day actual
+- Phase 5: 4 days est. → <1 day actual
+- Total: 25-35 days est. → 1 day actual (build day)
