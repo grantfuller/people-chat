@@ -277,44 +277,80 @@ def cmd_demo(args):
     """One-command demo: build DB from sample, start chat."""
     from .ingestion import ingest
     from .glossary import generate as gen_glossary
-    
+    from .schema import introspect
+
     sample_dir = Path(__file__).parent / "data" / "sample"
     employees_csv = sample_dir / "employees.csv"
-    sample_glossary = sample_dir / "glossary.yaml"
-    
+
     if not employees_csv.exists():
         print(f"❌ Sample data not found at {employees_csv}")
         print(f"   Regenerate with: python3 generate_demo_data.py")
         sys.exit(1)
-    
+
     db_path = _resolve_db_path("demo_hr.db")
-    
-    print(f"  🧑‍💼 People Chat — Demo Mode")
-    print(f"  {'='*50}")
-    print(f"\n📥 Loading sample data...")
-    
+
+    # Welcome screen
+    print()
+    print("  🧑‍💼 People Chat — Demo Mode")
+    print("  ═══════════════════════════════════════════")
+    print()
+    print("  Setting up The Guild...")
+
+    # Load data
     try:
         result = ingest(str(employees_csv), db_path, table_name="employees")
-        print(f"   ✅ {result['rows']} employees loaded")
+        print(f"  ✅ {result['rows']} employees loaded")
+        print(f"  📊 {len(result['columns'])} data fields detected")
     except Exception as e:
-        print(f"   ❌ Failed: {e}")
+        print(f"  ❌ Failed: {e}")
         sys.exit(1)
-    
-    # Copy sample glossary
-    if sample_glossary.exists():
-        demo_glossary = Path(db_path).parent / f"{Path(db_path).stem}_glossary.yaml"
-        import shutil
-        shutil.copy2(str(sample_glossary), str(demo_glossary))
-        print(f"   ✅ Glossary loaded")
-    
-    print(f"\n  Starting chat session. Try asking:")
-    print(f"    \"How many active employees do we have?\"")
-    print(f"    \"What's the average salary by department?\"")
-    print(f"    \"Who are the top 5 highest paid?\"")
-    print(f"    \"Show me the salary distribution by Radford level\"")
-    print(f"\n  Type 'exit' to quit.\n")
-    
-    # Launch chat with demo db
+
+    # Generate glossary — this is critical for the LLM to understand the data
+    demo_glossary = _resolve_glossary_path(db_path)
+    print(f"  📖 Analyzing data structure...")
+    try:
+        gen_glossary(db_path, "employees", str(demo_glossary))
+        print(f"  ✅ HR context glossary created with field definitions + HR metrics")
+    except Exception as e:
+        print(f"  ⚠️  Glossary generation skipped: {e}")
+        demo_glossary = None
+
+    # Data summary
+    import sqlite3
+    conn = sqlite3.connect(db_path)
+    try:
+        active = conn.execute('SELECT COUNT(*) FROM employees WHERE "Employment Status" = \'Active\'').fetchone()[0]
+        total = conn.execute('SELECT COUNT(*) FROM employees').fetchone()[0]
+        dept_count = conn.execute('SELECT COUNT(DISTINCT "Department") FROM employees').fetchone()[0]
+        div_count = conn.execute('SELECT COUNT(DISTINCT "Division") FROM employees').fetchone()[0]
+    except Exception:
+        active, total, dept_count, div_count = "?", "?", "?", "?"
+    finally:
+        conn.close()
+
+    print(f"\n  📊 The Guild — Sample Data Overview")
+    print(f"     {active} active employees ({total} total)")
+    print(f"     {dept_count} departments across {div_count} divisions")
+    print()
+
+    # Guided or interactive mode
+    if args.guided:
+        from .demo_guide import run_guided_tour
+        run_guided_tour(db_path, str(demo_glossary) if demo_glossary else None)
+
+    # Show suggested questions
+    print("  💡 Try asking:")
+    print(f"    • \"How many active employees do we have?\"")
+    print(f"    • \"What's the average salary by department?\"")
+    print(f"    • \"Show me the salary distribution by Radford level\"")
+    print(f"    • \"Who are the top 10 highest paid employees?\"")
+    print(f"    • \"What departments have the most turnover?\"")
+    print(f"    • \"Show me the gender distribution by division\"")
+    if not args.guided:
+        print(f"\n  🎮 Or try 'people-chat demo --guided' for a guided tour!")
+    print()
+
+    # Launch chat
     args.db = db_path
     cmd_chat(args)
 
@@ -363,6 +399,7 @@ Examples:
     
     # demo
     demo_parser = subparsers.add_parser('demo', help='One-command demo with sample data')
+    demo_parser.add_argument('--guided', action='store_true', help='Guided tour showing different capabilities')
     
     args = parser.parse_args()
     
