@@ -42,6 +42,19 @@ def _resolve_glossary_path(db_path: str) -> str:
     return str(db.parent / f"{db.stem}_glossary.yaml")
 
 
+def _load_context(db_arg: Optional[str] = None) -> tuple[str, Optional[str]]:
+    """Resolve db path and glossary path, exiting if the DB doesn't exist."""
+    db_path = _resolve_db_path(db_arg)
+    if not os.path.exists(db_path):
+        print(f"❌ No database found at {db_path}")
+        print(f"   Run 'people-chat init <csv>' first")
+        sys.exit(1)
+    glossary_path = _resolve_glossary_path(db_path)
+    if not os.path.exists(glossary_path):
+        glossary_path = None
+    return db_path, glossary_path
+
+
 # ─── Command: init ───────────────────────────────────────
 
 def cmd_init(args):
