@@ -16,7 +16,6 @@ import argparse
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 # ─── Paths ───────────────────────────────────────────────
 
@@ -29,7 +28,7 @@ def _ensure_db_dir():
     DEFAULT_DB_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def _resolve_db_path(db_path: Optional[str] = None) -> str:
+def _resolve_db_path(db_path: str | None = None) -> str:
     if db_path:
         return str(Path(db_path).resolve())
     _ensure_db_dir()
@@ -42,12 +41,12 @@ def _resolve_glossary_path(db_path: str) -> str:
     return str(db.parent / f"{db.stem}_glossary.yaml")
 
 
-def _load_context(db_arg: Optional[str] = None) -> tuple[str, Optional[str]]:
+def _load_context(db_arg: str | None = None) -> tuple[str, str | None]:
     """Resolve db path and glossary path, exiting if the DB doesn't exist."""
     db_path = _resolve_db_path(db_arg)
     if not os.path.exists(db_path):
         print(f"❌ No database found at {db_path}")
-        print(f"   Run 'people-chat init <csv>' first")
+        print("   Run 'people-chat init <csv>' first")
         sys.exit(1)
     glossary_path = _resolve_glossary_path(db_path)
     if not os.path.exists(glossary_path):
@@ -59,8 +58,8 @@ def _load_context(db_arg: Optional[str] = None) -> tuple[str, Optional[str]]:
 
 def cmd_init(args):
     """Ingest a CSV file into SQLite and generate glossary."""
-    from .ingestion import ingest
     from .glossary import generate
+    from .ingestion import ingest
     
     csv_path = args.csv
     if not os.path.exists(csv_path):
@@ -76,7 +75,7 @@ def cmd_init(args):
         result = ingest(csv_path, db_path, table_name=table_name)
         print(f"   ✅ {result['rows']} rows into table '{result['table_name']}'")
         print(f"   📋 {len(result['columns'])} columns detected")
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"   ❌ Ingestion failed: {e}")
         sys.exit(1)
     
@@ -88,23 +87,23 @@ def cmd_init(args):
         yaml_out = generate(db_path, table_name, str(glossary_path))
         line_count = len(yaml_out.strip().split('\n'))
         print(f"   ✅ {line_count} lines written")
-        print(f"\n   Edit the glossary to add HR context:")
+        print("\n   Edit the glossary to add HR context:")
         print(f"   $ nano {glossary_path}")
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"   ⚠️  Glossary generation failed: {e}")
-        print(f"   (You can generate it later with: glossary.py)")
+        print("   (You can generate it later with: glossary.py)")
     
     print(f"\n💾 Database: {db_path}")
     print(f"📖 Glossary:  {glossary_path}")
-    print(f"\nNow try: people-chat ask \"How many employees do we have?\"")
+    print("\nNow try: people-chat ask \"How many employees do we have?\"")
 
 
 # ─── Command: ask ────────────────────────────────────────
 
 def cmd_ask(args):
     """Ask one question and get an answer."""
-    from .query_engine import ask
     from .formatter import format_result, format_without_rich
+    from .query_engine import ask
     
     db_path, glossary_path = _load_context(args.db)
     question = args.question
@@ -117,7 +116,7 @@ def cmd_ask(args):
         output = format_without_rich(formatted['text'])
         print(output)
     
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"❌ Error: {e}")
         sys.exit(1)
 
@@ -126,12 +125,12 @@ def cmd_ask(args):
 
 def cmd_chat(args):
     """Interactive chat session."""
-    from .query_engine import ask
     from .formatter import format_result, format_without_rich
+    from .query_engine import ask
     
     db_path, glossary_path = _load_context(args.db)
-    print(f"\n  🧑‍💼 People Chat — ask anything about your people data")
-    print(f"  Type 'exit' or 'quit' to leave, '/sql' to show SQL")
+    print("\n  🧑‍💼 People Chat — ask anything about your people data")
+    print("  Type 'exit' or 'quit' to leave, '/sql' to show SQL")
     print(f"  {'='*50}\n")
     
     show_sql = False
@@ -171,7 +170,7 @@ def cmd_chat(args):
             print()
             
             history.append({"question": question, "result": result})
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001  # noqa: BLE001
             print(f"  ❌ {e}\n")
 
 
@@ -179,7 +178,7 @@ def cmd_chat(args):
 
 def cmd_stats(args):
     """Show data overview of the database."""
-    from .schema import introspect, get_tables
+    from .schema import introspect
     
     db_path = _resolve_db_path(args.db)
     if not os.path.exists(db_path):
@@ -188,11 +187,11 @@ def cmd_stats(args):
     
     try:
         info = introspect(db_path)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"❌ Database introspection failed: {e}")
         sys.exit(1)
     
-    print(f"\n  📊 People Chat — Data Overview")
+    print("\n  📊 People Chat — Data Overview")
     print(f"  Database: {db_path}")
     print(f"  {'='*50}")
     
@@ -234,7 +233,7 @@ def cmd_status(args):
     cfg = apply_defaults(cfg)
     missing = cfg.validate()
     
-    print(f"\n  ⚙️  People Chat — Status")
+    print("\n  ⚙️  People Chat — Status")
     print(f"  {'='*50}")
     
     # Project path
@@ -249,7 +248,7 @@ def cmd_status(args):
         print(f"  💾 Database: {db_path} ({db_size:.0f} KB) ✅")
     else:
         print(f"  💾 Database: {db_path} ❌ Not found")
-        print(f"     Run 'people-chat init <csv>' to create it")
+        print("     Run 'people-chat init <csv>' to create it")
     
     # Glossary
     glossary_path = _resolve_glossary_path(db_path)
@@ -263,7 +262,7 @@ def cmd_status(args):
     print(f"     Base URL: {cfg.base_url}")
     
     if missing:
-        print(f"\n  ⚠️  Configuration issues:")
+        print("\n  ⚠️  Configuration issues:")
         for m in missing:
             print(f"     - {m}")
     
@@ -274,21 +273,22 @@ def cmd_status(args):
 
 def cmd_validate(args):
     """Validate glossary against database schema."""
-    from .glossary import validate as validate_glossary, format_validation_results
+    from .glossary import format_validation_results
+    from .glossary import validate as validate_glossary
     
     db_path = _resolve_db_path(args.db)
     if not os.path.exists(db_path):
         print(f"❌ No database found at {db_path}")
-        print(f"   Run 'people-chat init <csv>' first")
+        print("   Run 'people-chat init <csv>' first")
         sys.exit(1)
     
     glossary_path = args.glossary or _resolve_glossary_path(db_path)
     if not os.path.exists(glossary_path):
         print(f"❌ Glossary not found at {glossary_path}")
-        print(f"   Run 'people-chat init <csv>' to generate one, or specify --glossary")
+        print("   Run 'people-chat init <csv>' to generate one, or specify --glossary")
         sys.exit(1)
     
-    print(f"  🔍 Validating glossary against database schema...")
+    print("  🔍 Validating glossary against database schema...")
     print(f"     Database: {db_path}")
     print(f"     Glossary: {glossary_path}\n")
     
@@ -296,7 +296,7 @@ def cmd_validate(args):
         issues = validate_glossary(db_path, glossary_path)
         result = format_validation_results(issues)
         print(f"  {result}")
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"  ❌ Validation failed: {e}")
         sys.exit(1)
 
@@ -305,9 +305,8 @@ def cmd_validate(args):
 
 def cmd_demo(args):
     """One-command demo: build DB from sample, start chat."""
-    from .ingestion import ingest
     from .glossary import generate as gen_glossary
-    from .schema import introspect
+    from .ingestion import ingest
     from .query_engine import execute_sql
 
     sample_dir = Path(__file__).parent / "data" / "sample"
@@ -315,7 +314,7 @@ def cmd_demo(args):
 
     if not employees_csv.exists():
         print(f"❌ Sample data not found at {employees_csv}")
-        print(f"   Regenerate with: python3 generate_demo_data.py")
+        print("   Regenerate with: python3 generate_demo_data.py")
         sys.exit(1)
 
     db_path = _resolve_db_path("demo_hr.db")
@@ -332,17 +331,17 @@ def cmd_demo(args):
         result = ingest(str(employees_csv), db_path, table_name="employees")
         print(f"  ✅ {result['rows']} employees loaded")
         print(f"  📊 {len(result['columns'])} data fields detected")
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"  ❌ Failed: {e}")
         sys.exit(1)
 
     # Generate glossary — this is critical for the LLM to understand the data
     demo_glossary = _resolve_glossary_path(db_path)
-    print(f"  📖 Analyzing data structure...")
+    print("  📖 Analyzing data structure...")
     try:
         gen_glossary(db_path, "employees", str(demo_glossary))
-        print(f"  ✅ HR context glossary created with field definitions + HR metrics")
-    except Exception as e:
+        print("  ✅ HR context glossary created with field definitions + HR metrics")
+    except Exception as e:  # noqa: BLE001  # noqa: BLE001
         print(f"  ⚠️  Glossary generation skipped: {e}")
         demo_glossary = None
 
@@ -359,7 +358,7 @@ def cmd_demo(args):
     dept_count = _summary_count('SELECT COUNT(DISTINCT "Department") AS cnt FROM employees')
     div_count = _summary_count('SELECT COUNT(DISTINCT "Division") AS cnt FROM employees')
 
-    print(f"\n  📊 The Guild — Sample Data Overview")
+    print("\n  📊 The Guild — Sample Data Overview")
     print(f"     {active} active employees ({total} total)")
     print(f"     {dept_count} departments across {div_count} divisions")
     print()
@@ -371,14 +370,14 @@ def cmd_demo(args):
 
     # Show suggested questions
     print("  💡 Try asking:")
-    print(f"    • \"How many active employees do we have?\"")
-    print(f"    • \"What's the average salary by department?\"")
-    print(f"    • \"Show me the salary distribution by Radford level\"")
-    print(f"    • \"Who are the top 10 highest paid employees?\"")
-    print(f"    • \"What departments have the most turnover?\"")
-    print(f"    • \"Show me the gender distribution by division\"")
+    print("    • \"How many active employees do we have?\"")
+    print("    • \"What's the average salary by department?\"")
+    print("    • \"Show me the salary distribution by Radford level\"")
+    print("    • \"Who are the top 10 highest paid employees?\"")
+    print("    • \"What departments have the most turnover?\"")
+    print("    • \"Show me the gender distribution by division\"")
     if not args.guided:
-        print(f"\n  🎮 Or try 'people-chat demo --guided' for a guided tour!")
+        print("\n  🎮 Or try 'people-chat demo --guided' for a guided tour!")
     print()
 
     # Launch chat
@@ -425,10 +424,10 @@ Examples:
     subparsers.add_parser('chat', help='Interactive chat session')
     
     # stats
-    stats_parser = subparsers.add_parser('stats', help='Show data overview')
+    subparsers.add_parser('stats', help='Show data overview')
     
     # status
-    status_parser = subparsers.add_parser('status', help='Show configuration')
+    subparsers.add_parser('status', help='Show configuration')
     
     # demo
     demo_parser = subparsers.add_parser('demo', help='One-command demo with sample data')

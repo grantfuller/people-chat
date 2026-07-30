@@ -6,12 +6,11 @@ Takes natural language questions → generates SQL via LLM → executes → retu
 import re
 import sqlite3
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 from . import config as cfg
 from . import schema as db_schema
-from . import glossary as glossary_module
-from .llm import get_provider, LLMResponse
+from .llm import get_provider
 
 # ─── Prompt Templates ────────────────────────────────────
 
@@ -38,8 +37,8 @@ def _detect_intent(question: str) -> str:
 def build_prompt(
     question: str,
     db_path: str,
-    table_name: Optional[str] = None,
-    glossary_path: Optional[str] = None,
+    table_name: str | None = None,
+    glossary_path: str | None = None,
 ) -> str:
     """
     Build the complete prompt for the LLM.
@@ -90,7 +89,7 @@ def build_prompt(
                                 gloss_parts.append(f"    Formula: {formula}")
                     
                     glossary_text = "\n".join(gloss_parts)
-        except Exception:
+        except Exception:  # noqa: BLE001  # noqa: BLE001
             glossary_text = "# Error loading glossary"
     
     # Load few-shot examples
@@ -128,7 +127,7 @@ Respond with:
 
 # ─── SQL Extraction ──────────────────────────────────────
 
-def extract_sql(response: str) -> Optional[str]:
+def extract_sql(response: str) -> str | None:
     """Extract SQL from LLM response. Handles markdown code blocks and plain text."""
     # Try to find SQL in markdown code blocks
     sql_blocks = re.findall(r'```sql\s*([\s\S]*?)```', response, re.IGNORECASE)
@@ -160,7 +159,7 @@ def extract_sql(response: str) -> Optional[str]:
     return None
 
 
-def validate_sql(sql: str) -> Tuple[bool, str]:
+def validate_sql(sql: str) -> tuple[bool, str]:
     """Validate that SQL is read-only and safe to execute."""
     sql_upper = sql.strip().upper()
     
@@ -191,7 +190,7 @@ def validate_sql(sql: str) -> Tuple[bool, str]:
 
 # ─── SQL Execution ───────────────────────────────────────
 
-def execute_sql(db_path: str, sql: str) -> Dict[str, Any]:
+def execute_sql(db_path: str, sql: str) -> dict[str, Any]:
     """Execute a SQL query and return structured results."""
     conn = sqlite3.connect(db_path)
     conn.execute("PRAGMA busy_timeout=5000")
@@ -298,10 +297,10 @@ def _check_needs_info(response_text: str) -> bool:
 def ask(
     question: str,
     db_path: str,
-    table_name: Optional[str] = None,
-    glossary_path: Optional[str] = None,
-    config: Optional[cfg.ProviderConfig] = None,
-) -> Dict[str, Any]:
+    table_name: str | None = None,
+    glossary_path: str | None = None,
+    config: cfg.ProviderConfig | None = None,
+) -> dict[str, Any]:
     """
     Ask a natural language question about your HR data.
     

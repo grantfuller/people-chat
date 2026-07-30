@@ -4,14 +4,13 @@ Reads database schema → generates YAML template with column descriptions.
 Validates YAML against actual schema to catch drift.
 """
 
-import yaml
-import json
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-from datetime import date
+from typing import Any
+
+import yaml
 
 from . import schema as db_schema
-
 
 # ─── YAML Template Generation ───────────────────────────
 
@@ -131,7 +130,7 @@ def normalize_column_name(name: str) -> str:
     return name.strip().lower().replace("-", "_").replace(":", "").replace("?", "")
 
 
-def generate(db_path: str, table_name: str, output_path: Optional[str] = None) -> str:
+def generate(db_path: str, table_name: str, output_path: str | None = None) -> str:
     """
     Generate a glossary YAML template from database schema.
     
@@ -156,13 +155,12 @@ def generate(db_path: str, table_name: str, output_path: Optional[str] = None) -
     sample = sample_rows[0] if sample_rows else {}
     
     # Get null counts
-    null_counts = table_info.get("null_counts", {})
     
     # Build glossary structure
-    glossary: Dict[str, Any] = {
+    glossary: dict[str, Any] = {
         "data_source": Path(db_path).stem,
         "description": f"Auto-generated glossary for table '{table_name}'",
-        "generated_at": str(date.today()),
+        "generated_at": str(datetime.now(UTC).date()),
         "columns": {}
     }
     
@@ -183,10 +181,10 @@ def generate(db_path: str, table_name: str, output_path: Optional[str] = None) -
             sample_hint = f" (e.g., {sample_value})"
         
         # Build column entry
-        entry: Dict[str, Any] = {
+        entry: dict[str, Any] = {
             "type": col_type.lower(),
             "nullable": nullable,
-            "description": description + sample_hint if not description else description + sample_hint,
+            "description": sample_hint if not description else description + sample_hint,
         }
         
         if is_pk:
@@ -222,7 +220,7 @@ def generate(db_path: str, table_name: str, output_path: Optional[str] = None) -
 
 # ─── Glossary Validation ────────────────────────────────
 
-def validate(db_path: str, glossary_path: str) -> List[Dict[str, Any]]:
+def validate(db_path: str, glossary_path: str) -> list[dict[str, Any]]:
     """
     Validate a glossary YAML file against the actual database schema.
     
@@ -260,7 +258,7 @@ def validate(db_path: str, glossary_path: str) -> List[Dict[str, Any]]:
     
     for table_name in tables:
         actual_columns = db_schema.get_columns(db_path, table_name)
-        actual_names = set(c["name"] for c in actual_columns)
+        actual_names = {c["name"] for c in actual_columns}
         
         # Check for columns in glossary that don't exist in DB
         for col_name in glossary_columns:
@@ -311,7 +309,7 @@ def validate(db_path: str, glossary_path: str) -> List[Dict[str, Any]]:
     return issues
 
 
-def format_validation_results(issues: List[Dict[str, Any]]) -> str:
+def format_validation_results(issues: list[dict[str, Any]]) -> str:
     """Format validation results as a human-readable string."""
     if not issues:
         return "✅ Glossary is valid — all columns accounted for."

@@ -5,12 +5,11 @@ Reads environment variables to determine LLM provider, model, and API keys.
 
 import os
 from pathlib import Path
-from typing import Optional
 
 DOT_ENV_PATH = Path.home() / ".people-chat" / ".env"
 
 
-def load_dotenv(path: Optional[Path] = None) -> None:
+def load_dotenv(path: Path | None = None) -> None:
     """Load .env file if it exists."""
     env_path = path or DOT_ENV_PATH
     if env_path.exists():
@@ -33,9 +32,9 @@ class ProviderConfig:
         load_dotenv()
 
         self.provider: str = os.getenv("LLM_PROVIDER", "deepseek").lower()
-        self.api_key: Optional[str] = os.getenv("LLM_API_KEY")
+        self.api_key: str | None = os.getenv("LLM_API_KEY")
         self.model: str = os.getenv("LLM_MODEL", "deepseek-chat")
-        self.base_url: Optional[str] = os.getenv("LLM_BASE_URL")
+        self.base_url: str | None = os.getenv("LLM_BASE_URL")
         self.max_tokens: int = int(os.getenv("LLM_MAX_TOKENS", "4096"))
         self.temperature: float = float(os.getenv("LLM_TEMPERATURE", "0.1"))
         self.timeout: int = int(os.getenv("LLM_TIMEOUT", "30"))

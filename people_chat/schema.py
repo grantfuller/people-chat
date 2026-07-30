@@ -5,10 +5,10 @@ structured info about tables, columns, types, and constraints.
 
 import sqlite3
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
-def get_tables(db_path: str) -> List[str]:
+def get_tables(db_path: str) -> list[str]:
     """Get list of all table names in the database."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -18,7 +18,7 @@ def get_tables(db_path: str) -> List[str]:
     return tables
 
 
-def get_columns(db_path: str, table_name: str) -> List[Dict[str, Any]]:
+def get_columns(db_path: str, table_name: str) -> list[dict[str, Any]]:
     """
     Get column metadata for a table.
     
@@ -59,7 +59,7 @@ def get_row_count(db_path: str, table_name: str) -> int:
     return count
 
 
-def get_sample_rows(db_path: str, table_name: str, limit: int = 5) -> List[Dict[str, Any]]:
+def get_sample_rows(db_path: str, table_name: str, limit: int = 5) -> list[dict[str, Any]]:
     """Get sample rows from a table as list of dicts."""
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
@@ -73,7 +73,7 @@ def get_sample_rows(db_path: str, table_name: str, limit: int = 5) -> List[Dict[
     return rows
 
 
-def get_null_counts(db_path: str, table_name: str) -> Dict[str, int]:
+def get_null_counts(db_path: str, table_name: str) -> dict[str, int]:
     """Get count of NULLs per column."""
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -91,7 +91,7 @@ def get_null_counts(db_path: str, table_name: str) -> Dict[str, int]:
     return null_counts
 
 
-def introspect(db_path: str, table_name: Optional[str] = None) -> Dict[str, Any]:
+def introspect(db_path: str, table_name: str | None = None) -> dict[str, Any]:
     """
     Full introspection of a database.
     

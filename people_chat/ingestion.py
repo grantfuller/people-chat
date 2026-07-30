@@ -3,10 +3,10 @@ CSV → SQLite ingestion engine with automatic type detection.
 Reads CSV files, infers column types, creates SQLite tables, inserts data.
 """
 
-import csv
 import sqlite3
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
+
 import pandas as pd
 
 
@@ -46,15 +46,16 @@ def detect_sql_type(series: pd.Series) -> str:
     return "TEXT"
 
 
-def build_create_table_sql(table_name: str, columns: Dict[str, str]) -> str:
+def build_create_table_sql(table_name: str, columns: dict[str, str]) -> str:
     """Generate CREATE TABLE SQL from column name → type mapping."""
     col_defs = []
     for col_name, col_type in columns.items():
         safe_name = f'"{col_name}"'
         col_defs.append(f"    {safe_name} {col_type}")
     
+    col_defs_str = ",\n".join(col_defs)
     sql = f"""CREATE TABLE IF NOT EXISTS "{table_name}" (
-{',\n'.join(col_defs)}
+{col_defs_str}
 );"""
     return sql
 
@@ -72,7 +73,7 @@ def read_csv_to_dataframe(csv_path: str) -> pd.DataFrame:
     return df
 
 
-def infer_schema(df: pd.DataFrame) -> Dict[str, str]:
+def infer_schema(df: pd.DataFrame) -> dict[str, str]:
     """Infer SQLite column types from a DataFrame."""
     schema = {}
     for col in df.columns:
@@ -80,7 +81,7 @@ def infer_schema(df: pd.DataFrame) -> Dict[str, str]:
     return schema
 
 
-def create_table(cursor: sqlite3.Cursor, table_name: str, schema: Dict[str, str]):
+def create_table(cursor: sqlite3.Cursor, table_name: str, schema: dict[str, str]):
     """Create a SQLite table if it doesn't exist."""
     sql = build_create_table_sql(table_name, schema)
     cursor.execute(sql)
@@ -90,7 +91,7 @@ def insert_data(
     cursor: sqlite3.Cursor,
     table_name: str,
     df: pd.DataFrame,
-    schema: Dict[str, str],
+    schema: dict[str, str],
     batch_size: int = 100
 ) -> int:
     """Insert DataFrame rows into SQLite table. Returns row count."""
@@ -133,9 +134,9 @@ def insert_data(
 def ingest(
     csv_path: str,
     db_path: str,
-    table_name: Optional[str] = None,
+    table_name: str | None = None,
     if_exists: str = "replace"
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Full CSV → SQLite ingestion pipeline.
     

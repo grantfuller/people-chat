@@ -3,8 +3,8 @@ Guided demo tour for People Chat.
 Runs through pre-canned queries showing different HR analytics capabilities.
 """
 
-from .query_engine import ask
 from .formatter import format_result, format_without_rich
+from .query_engine import ask
 
 GUIDED_QUESTIONS = [
     {
@@ -34,7 +34,7 @@ GUIDED_QUESTIONS = [
 ]
 
 
-def run_guided_tour(db_path: str, glossary_path: str = None):
+def run_guided_tour(db_path: str, glossary_path: str | None = None):
     """Run through pre-canned questions showing what People Chat can do."""
     print()
     print("  🎮 Guided Tour — Let's see what People Chat can do!")
@@ -56,7 +56,7 @@ def run_guided_tour(db_path: str, glossary_path: str = None):
             for line in output.split('\n'):
                 if line.strip():
                     print(f"  {line.strip()}")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001  # noqa: BLE001
             print(f"  ⚠️  Query failed: {e}")
 
         print()

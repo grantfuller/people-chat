@@ -3,16 +3,15 @@ Output formatter for People Chat.
 Transforms query results into beautiful terminal output (tables, charts, text).
 """
 
-from typing import Any, Dict, List, Optional, Tuple
-from io import StringIO
 import os
 import tempfile
 import webbrowser
-
+from io import StringIO
+from typing import Any
 
 # ─── Terminal Table Formatting ──────────────────────────
 
-def format_table(columns: List[str], rows: List[Dict[str, Any]], title: Optional[str] = None) -> str:
+def format_table(columns: list[str], rows: list[dict[str, Any]], title: str | None = None) -> str:
     """
     Format query results as a beautiful terminal table using rich.
     Falls back to simple text if rich isn't available.
@@ -20,7 +19,6 @@ def format_table(columns: List[str], rows: List[Dict[str, Any]], title: Optional
     try:
         from rich.console import Console
         from rich.table import Table
-        from rich.text import Text
         
         console = Console(file=StringIO(), width=120, force_terminal=True, color_system="truecolor")
         
@@ -56,7 +54,7 @@ def format_table(columns: List[str], rows: List[Dict[str, Any]], title: Optional
         return _format_table_text(columns, rows, title)
 
 
-def _format_table_text(columns: List[str], rows: List[Dict[str, Any]], title: Optional[str] = None) -> str:
+def _format_table_text(columns: list[str], rows: list[dict[str, Any]], title: str | None = None) -> str:
     """Simple text-based table fallback."""
     lines = []
     if title:
@@ -78,13 +76,13 @@ def _format_table_text(columns: List[str], rows: List[Dict[str, Any]], title: Op
         widths[col] = min(max_width + 2, 60)
     
     # Header
-    header = "  " + "".join(f"{str(col):{widths[col]}}" for col in columns)
+    header = "  " + "".join(f"{col!s:{widths[col]}}" for col in columns)
     lines.append(header)
     lines.append("  " + "-" * sum(widths.values()))
     
     # Rows
     for row in rows[:100]:
-        line = "  " + "".join(f"{str(row.get(col, '')):{widths[col]}}" for col in columns)
+        line = "  " + "".join(f"{row.get(col, '')!s:{widths[col]}}" for col in columns)
         lines.append(line)
     
     if len(rows) > 100:
@@ -96,7 +94,7 @@ def _format_table_text(columns: List[str], rows: List[Dict[str, Any]], title: Op
 
 # ─── Chart Detection ─────────────────────────────────────
 
-def _is_chartable(columns: List[str], rows: List[Dict[str, Any]]) -> bool:
+def _is_chartable(columns: list[str], rows: list[dict[str, Any]]) -> bool:
     """Determine if results would make a good chart."""
     if not rows or len(rows) < 2:
         return False
@@ -116,7 +114,7 @@ def _is_chartable(columns: List[str], rows: List[Dict[str, Any]]) -> bool:
     return text_count >= 1 and numeric_count >= 1 and len(rows) <= 20
 
 
-def _detect_chart_type(columns: List[str], rows: List[Dict[str, Any]]) -> str:
+def _detect_chart_type(columns: list[str], rows: list[dict[str, Any]]) -> str:
     """Auto-detect the best chart type for this data."""
     numeric_cols = []
     text_cols = []
@@ -127,8 +125,8 @@ def _detect_chart_type(columns: List[str], rows: List[Dict[str, Any]]) -> str:
         elif val is not None:
             text_cols.append(col)
     
-    category_col = text_cols[0] if text_cols else columns[0]
-    value_col = numeric_cols[0] if numeric_cols else columns[1] if len(columns) > 1 else columns[0]
+    _ = text_cols[0] if text_cols else columns[0]
+    _ = numeric_cols[0] if numeric_cols else columns[1] if len(columns) > 1 else columns[0]
     
     # Check if there's a date/time column
     date_keywords = ['date', 'year', 'month', 'time', 'hire', 'termination']
@@ -143,16 +141,15 @@ def _detect_chart_type(columns: List[str], rows: List[Dict[str, Any]]) -> str:
 
 # ─── Chart Generation ───────────────────────────────────
 
-def generate_chart(columns: List[str], rows: List[Dict[str, Any]], chart_type: Optional[str] = None) -> Optional[str]:
+def generate_chart(columns: list[str], rows: list[dict[str, Any]], chart_type: str | None = None) -> str | None:
     """
     Generate a Plotly chart from query results.
     
     Returns: HTML string of the chart, or None if chart generation fails.
     """
     try:
-        import plotly.express as px
-        import plotly.graph_objects as go
         import pandas as pd
+        import plotly.express as px
     except ImportError:
         return None
     
@@ -198,13 +195,13 @@ def generate_chart(columns: List[str], rows: List[Dict[str, Any]], chart_type: O
         
         fig.update_layout(
             template="plotly_dark",
-            margin=dict(l=40, r=40, t=40, b=40),
+            margin={"l": 40, "r": 40, "t": 40, "b": 40},
             height=400 + min(len(rows) * 20, 200),
         )
         
         return fig.to_html(include_plotlyjs='cdn', full_html=False)
     
-    except Exception:
+    except Exception:  # noqa: BLE001  # noqa: BLE001
         return None
 
 
@@ -240,10 +237,10 @@ def save_and_open_chart(html_content: str, filename: str = "people_chart.html") 
 # ─── Result Dispatcher ───────────────────────────────────
 
 def format_result(
-    query_result: Dict[str, Any],
+    query_result: dict[str, Any],
     show_sql: bool = False,
     force_chart: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Format a query result for display.
     
@@ -297,7 +294,7 @@ def format_result(
     # Add SQL if requested
     if show_sql and query_result.get("sql"):
         sql = query_result["sql"]
-        output_parts.append(f"\n  [dim]── SQL ──[/dim]")
+        output_parts.append("\n  [dim]── SQL ──[/dim]")
         output_parts.append(f"  [dim]{sql}[/dim]")
     
     # Generate chart if: force_chart, explicitly requested, or chartable data
@@ -311,7 +308,7 @@ def format_result(
         chart_html = generate_chart(columns, rows, chart_type)
         if chart_html:
             chart_path = save_and_open_chart(chart_html)
-            output_parts.append(f"\n  [green]📈 Chart opened in browser[/green]")
+            output_parts.append("\n  [green]📈 Chart opened in browser[/green]")
     
     return {
         "text": '\n'.join(output_parts),

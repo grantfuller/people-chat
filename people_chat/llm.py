@@ -3,10 +3,7 @@ LLM provider abstraction layer.
 Supports OpenAI-compatible APIs (OpenAI, DeepSeek, Groq), Anthropic, and Ollama.
 """
 
-import json
-import os
 from abc import ABC, abstractmethod
-from typing import Optional
 
 from . import config as cfg
 
@@ -14,7 +11,7 @@ from . import config as cfg
 class LLMResponse:
     """Structured response from any LLM provider."""
 
-    def __init__(self, content: str, model: str, provider: str, raw: Optional[dict] = None):
+    def __init__(self, content: str, model: str, provider: str, raw: dict | None = None):
         self.content = content
         self.model = model
         self.provider = provider
@@ -38,7 +35,7 @@ class LLMProvider(ABC):
         ...
 
     @abstractmethod
-    def send_prompt(self, prompt: str, system: Optional[str] = None, **kwargs) -> LLMResponse:
+    def send_prompt(self, prompt: str, system: str | None = None, **kwargs) -> LLMResponse:
         """
         Send a prompt to the LLM and return the response.
 
@@ -73,7 +70,7 @@ class OpenAICompatibleProvider(LLMProvider):
             self._client = self._build_client()
         return self._client
 
-    def send_prompt(self, prompt: str, system: Optional[str] = None, **kwargs) -> LLMResponse:
+    def send_prompt(self, prompt: str, system: str | None = None, **kwargs) -> LLMResponse:
         messages = []
         if system:
             messages.append({"role": "system", "content": system})
@@ -111,7 +108,7 @@ class AnthropicProvider(LLMProvider):
             self._client = self._build_client()
         return self._client
 
-    def send_prompt(self, prompt: str, system: Optional[str] = None, **kwargs) -> LLMResponse:
+    def send_prompt(self, prompt: str, system: str | None = None, **kwargs) -> LLMResponse:
         message = self.client.messages.create(
             model=kwargs.get("model", self.config.model),
             max_tokens=kwargs.get("max_tokens", self.config.max_tokens),
@@ -146,7 +143,7 @@ class OllamaProvider(LLMProvider):
             self._client = self._build_client()
         return self._client
 
-    def send_prompt(self, prompt: str, system: Optional[str] = None, **kwargs) -> LLMResponse:
+    def send_prompt(self, prompt: str, system: str | None = None, **kwargs) -> LLMResponse:
         messages = []
         if system:
             messages.append({"role": "system", "content": system})
@@ -181,7 +178,7 @@ PROVIDER_REGISTRY = {
 }
 
 
-def get_provider(config: Optional[cfg.ProviderConfig] = None) -> LLMProvider:
+def get_provider(config: cfg.ProviderConfig | None = None) -> LLMProvider:
     """
     Factory function — returns the right provider based on config.
 
