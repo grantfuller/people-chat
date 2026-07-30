@@ -72,7 +72,10 @@ PROVIDER_DEFAULTS = {
 def apply_defaults(cfg: ProviderConfig) -> ProviderConfig:
     """Apply provider-specific defaults for any unset fields."""
     defaults = PROVIDER_DEFAULTS.get(cfg.provider, {})
-    if not cfg.model or cfg.model == "deepseek-chat" and cfg.provider != "deepseek":
+    # If the model was never explicitly set (still carrying the generic fallback),
+    # apply the provider-specific default instead
+    model_still_default = (cfg.model == "deepseek-chat" and cfg.provider != "deepseek")
+    if not cfg.model or model_still_default:
         cfg.model = defaults.get("model", cfg.model)
     if not cfg.base_url:
         cfg.base_url = defaults.get("base_url")
