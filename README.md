@@ -5,6 +5,7 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]()
 [![Demo Ready](https://img.shields.io/badge/demo-ready-brightgreen.svg)]()
+[![CI](https://github.com/grantfuller/people-chat/actions/workflows/ci.yml/badge.svg)](https://github.com/grantfuller/people-chat/actions/workflows/ci.yml)
 
 Turn your HR data into answers. People Chat ingests employee CSVs, builds a searchable database, and lets you ask questions in plain English. It generates SQL queries using an LLM, executes them against your data, and returns results as formatted tables or interactive charts.
 
