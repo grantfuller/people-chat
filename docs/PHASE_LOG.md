@@ -60,5 +60,7 @@ Project skeleton, venv, pyproject.toml, README skeleton, docs.
 - CONTRIBUTING.md — contribution guidelines
 
 ## Phase 8: Launch
-**Status:** ⏳ Not Started
-- GitHub repository setup, CI/CD, PyPI publishing pending
+**Status:** ✅ Complete | **Date:** 2026-07-29
+- GitHub repository published at [github.com/grantfuller/people-chat](https://github.com/grantfuller/people-chat)
+- CI/CD pipeline with pytest + ruff on push
+- Badges: Python 3.11+, MIT License, Demo Ready, CI passing
