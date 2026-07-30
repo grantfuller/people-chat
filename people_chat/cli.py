@@ -93,16 +93,7 @@ def cmd_ask(args):
     from .query_engine import ask
     from .formatter import format_result, format_without_rich
     
-    db_path = _resolve_db_path(args.db)
-    if not os.path.exists(db_path):
-        print(f"❌ No database found at {db_path}")
-        print(f"   Run 'people-chat init <csv>' first")
-        sys.exit(1)
-    
-    glossary_path = _resolve_glossary_path(db_path)
-    if not os.path.exists(glossary_path):
-        glossary_path = None
-    
+    db_path, glossary_path = _load_context(args.db)
     question = args.question
     
     try:
@@ -125,16 +116,7 @@ def cmd_chat(args):
     from .query_engine import ask
     from .formatter import format_result, format_without_rich
     
-    db_path = _resolve_db_path(args.db)
-    if not os.path.exists(db_path):
-        print(f"❌ No database found at {db_path}")
-        print(f"   Run 'people-chat init <csv>' first")
-        sys.exit(1)
-    
-    glossary_path = _resolve_glossary_path(db_path)
-    if not os.path.exists(glossary_path):
-        glossary_path = None
-    
+    db_path, glossary_path = _load_context(args.db)
     print(f"\n  🧑‍💼 People Chat — ask anything about your people data")
     print(f"  Type 'exit' or 'quit' to leave, '/sql' to show SQL")
     print(f"  {'='*50}\n")
@@ -191,7 +173,11 @@ def cmd_stats(args):
         print(f"❌ No database found at {db_path}")
         sys.exit(1)
     
-    info = introspect(db_path)
+    try:
+        info = introspect(db_path)
+    except Exception as e:
+        print(f"❌ Database introspection failed: {e}")
+        sys.exit(1)
     
     print(f"\n  📊 People Chat — Data Overview")
     print(f"  Database: {db_path}")
@@ -309,6 +295,7 @@ def cmd_demo(args):
     from .ingestion import ingest
     from .glossary import generate as gen_glossary
     from .schema import introspect
+    from .query_engine import execute_sql
 
     sample_dir = Path(__file__).parent / "data" / "sample"
     employees_csv = sample_dir / "employees.csv"
@@ -346,18 +333,18 @@ def cmd_demo(args):
         print(f"  ⚠️  Glossary generation skipped: {e}")
         demo_glossary = None
 
-    # Data summary
-    import sqlite3
-    conn = sqlite3.connect(db_path)
-    try:
-        active = conn.execute('SELECT COUNT(*) FROM employees WHERE "Employment Status" = \'Active\'').fetchone()[0]
-        total = conn.execute('SELECT COUNT(*) FROM employees').fetchone()[0]
-        dept_count = conn.execute('SELECT COUNT(DISTINCT "Department") FROM employees').fetchone()[0]
-        div_count = conn.execute('SELECT COUNT(DISTINCT "Division") FROM employees').fetchone()[0]
-    except Exception:
-        active, total, dept_count, div_count = "?", "?", "?", "?"
-    finally:
-        conn.close()
+    # Data summary — use existing execution helper instead of raw sqlite3
+    def _summary_count(sql: str) -> str:
+        result = execute_sql(db_path, sql)
+        if result["success"] and result["rows"]:
+            val = result["rows"][0]["cnt"]
+            return str(val) if val is not None else "?"
+        return "?"
+
+    active = _summary_count('SELECT COUNT(*) AS cnt FROM employees WHERE "Employment Status" = \'Active\'')
+    total = _summary_count('SELECT COUNT(*) AS cnt FROM employees')
+    dept_count = _summary_count('SELECT COUNT(DISTINCT "Department") AS cnt FROM employees')
+    div_count = _summary_count('SELECT COUNT(DISTINCT "Division") AS cnt FROM employees')
 
     print(f"\n  📊 The Guild — Sample Data Overview")
     print(f"     {active} active employees ({total} total)")
