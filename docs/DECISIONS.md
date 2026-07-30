@@ -46,7 +46,7 @@ Each entry includes the decision, rationale, alternatives considered, and date.
 **Impact:** Cleaner queries like "show me all exempt employees" or "how many hourly workers are non-exempt?"
 
 ### Decision 8: Fictional D&D-themed company for demo
-**Rationale:** Grant requested a fun, safe company name. Will use a generic fantasy name (non-copyrighted). Department/Division structures will be real-world to maintain credibility.
+**Rationale:** The goal was a fun, safe company name. A generic fantasy name was chosen (non-copyrighted), while Department/Division structures stayed real-world to maintain credibility.
 **Status:** Company name TBD — research underway.
 
 ### Decision 9: Synthetic data strategy
