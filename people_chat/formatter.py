@@ -22,7 +22,7 @@ def format_table(columns: List[str], rows: List[Dict[str, Any]], title: Optional
         from rich.table import Table
         from rich.text import Text
         
-        console = Console(file=StringIO(), width=120)
+        console = Console(file=StringIO(), width=120, force_terminal=True, color_system="truecolor")
         
         rich_table = Table(title=title, title_style="bold cyan", border_style="blue")
         
@@ -242,6 +242,7 @@ def save_and_open_chart(html_content: str, filename: str = "people_chart.html") 
 def format_result(
     query_result: Dict[str, Any],
     show_sql: bool = False,
+    force_chart: bool = False,
 ) -> Dict[str, Any]:
     """
     Format a query result for display.
@@ -299,8 +300,11 @@ def format_result(
         output_parts.append(f"\n  [dim]── SQL ──[/dim]")
         output_parts.append(f"  [dim]{sql}[/dim]")
     
-    # Generate chart if chartable or explicitly requested
-    should_chart = intent == "chart" or (intent == "auto" and _is_chartable(columns, rows))
+    # Generate chart if: force_chart, explicitly requested, or chartable data
+    if force_chart:
+        should_chart = bool(columns and rows)
+    else:
+        should_chart = intent == "chart" or (intent == "auto" and _is_chartable(columns, rows))
     
     if should_chart and columns and rows:
         chart_type = "bar" if intent != "chart" else None

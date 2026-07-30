@@ -165,7 +165,7 @@ def validate_sql(sql: str) -> Tuple[bool, str]:
     sql_upper = sql.strip().upper()
     
     # Check for dangerous operations
-    dangerous = ['INSERT', 'UPDATE', 'DELETE', 'DROP', 'ALTER', 'CREATE', 'TRUNCATE', 'EXEC', 'PRAGMA']
+    dangerous = ['INSERT', 'UPDATE', 'DELETE', 'DROP', 'ALTER', 'CREATE', 'TRUNCATE', 'EXEC', 'PRAGMA', 'ATTACH', 'REPLACE', 'VACUUM']
     # Use regex to match whole words only
     for keyword in dangerous:
         if re.search(r'\b' + keyword + r'\b', sql_upper):

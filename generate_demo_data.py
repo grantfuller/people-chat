@@ -2,7 +2,7 @@
 """
 Synthetic HR Data Generator for People Chat Demo
 Generates realistic employee, job catalog, and reporting structure data
-matching Grant's BambooHR schema. Company: The Guild (fantasy-themed).
+matching a real-world HR schema. Company: The Guild (fantasy-themed).
 
 Outputs 4 CSV files into people_chat/data/sample/
 """

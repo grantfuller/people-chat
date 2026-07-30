@@ -75,6 +75,7 @@ people-chat ask "What's the headcount by department?"
 | `chat` | Interactive Q&A session with history |
 | `stats` | Show data overview (tables, columns, row counts) |
 | `status` | Show configuration check |
+| `validate` | Validate glossary against database schema |
 | `demo` | One-command demo with sample data |
 | `demo --guided` | Guided tour showing all capabilities |
 
@@ -92,6 +93,9 @@ people-chat ask "Which department has the most turnover?" --show-sql
 
 # Interactive session
 people-chat chat
+
+# Validate glossary against database schema
+people-chat validate
 ```
 
 ### Chat commands
@@ -121,7 +125,7 @@ All configuration is via environment variables or `~/.people-chat/.env`:
 |----------|--------------|:----------:|----------|
 | DeepSeek | deepseek-chat | ~$0.02 | API key |
 | OpenAI | gpt-4o-mini | ~$0.05 | API key |
-| Anthropic | claude-3-haiku | ~$0.08 | API key |
+| Anthropic | claude-3-5-haiku | ~$0.08 | API key |
 | Ollama | llama3.2 | Free | Local Ollama server |
 
 ## 🏢 Demo Data: The Guild
@@ -239,7 +243,7 @@ people-chat/
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, style, and PR guidelines.
 
-Check the [open issues](https://github.com/YOUR_USERNAME/people-chat/issues) for ideas.
+Check the [open issues](https://github.com/grantfuller/people-chat/issues) for ideas.
 
 ## 📋 Project Status
 

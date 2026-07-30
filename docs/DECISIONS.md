@@ -35,7 +35,7 @@ Each entry includes the decision, rationale, alternatives considered, and date.
 ## 2026-07-27 — Schema Design (Phase 1)
 
 ### Decision 6: Synthetic demo data over public dataset
-**Rationale:** Grant's real BambooHR schema has 143 columns across 4 tabs — far richer than any public dataset. Generating synthetic data matching his exact schema means the demo is immediately relevant to HR analysts. The Chicago public dataset would've required too much schema mapping.
+**Rationale:** A real-world HR schema has 143 columns across 4 tabs — far richer than any public dataset. Generating synthetic data matching this schema means the demo is immediately relevant to HR analysts. The Chicago public dataset would've required too much schema mapping.
 **Data model:** 4 CSV tables matching the Google Sheet tabs (Data Dump, Current Team, Reporting Structure, Job Catalog) with synthetic but realistic employee data.
 
 ### Decision 7: Split pay fields

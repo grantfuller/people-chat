@@ -107,7 +107,7 @@ def cmd_ask(args):
     
     try:
         result = ask(question, db_path, glossary_path=glossary_path)
-        formatted = format_result(result, show_sql=args.show_sql)
+        formatted = format_result(result, show_sql=args.show_sql, force_chart=args.chart)
         
         # Clean output for terminal
         output = format_without_rich(formatted['text'])
@@ -271,6 +271,37 @@ def cmd_status(args):
     print()
 
 
+# ─── Command: validate ──────────────────────────────────
+
+def cmd_validate(args):
+    """Validate glossary against database schema."""
+    from .glossary import validate as validate_glossary, format_validation_results
+    
+    db_path = _resolve_db_path(args.db)
+    if not os.path.exists(db_path):
+        print(f"❌ No database found at {db_path}")
+        print(f"   Run 'people-chat init <csv>' first")
+        sys.exit(1)
+    
+    glossary_path = args.glossary or _resolve_glossary_path(db_path)
+    if not os.path.exists(glossary_path):
+        print(f"❌ Glossary not found at {glossary_path}")
+        print(f"   Run 'people-chat init <csv>' to generate one, or specify --glossary")
+        sys.exit(1)
+    
+    print(f"  🔍 Validating glossary against database schema...")
+    print(f"     Database: {db_path}")
+    print(f"     Glossary: {glossary_path}\n")
+    
+    try:
+        issues = validate_glossary(db_path, glossary_path)
+        result = format_validation_results(issues)
+        print(f"  {result}")
+    except Exception as e:
+        print(f"  ❌ Validation failed: {e}")
+        sys.exit(1)
+
+
 # ─── Command: demo ───────────────────────────────────────
 
 def cmd_demo(args):
@@ -363,13 +394,15 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  people-chat init ./employees.csv                    Load data
-  people-chat ask "How many employees?"                Ask one question
-  people-chat ask "Show turnover by dept" --show-sql   Ask with SQL visible
-  people-chat chat                                      Interactive session
-  people-chat stats                                     Data overview
-  people-chat status                                    Configuration check
-  people-chat demo                                      One-command demo
+  people-chat init ./employees.csv                         Load data
+  people-chat ask "How many employees?"                     Ask one question
+  people-chat ask "Show turnover by dept" --show-sql        Ask with SQL visible
+  people-chat ask "Show salaries" --chart                   Force chart output
+  people-chat chat                                           Interactive session
+  people-chat stats                                          Data overview
+  people-chat status                                         Configuration check
+  people-chat validate                                       Validate glossary
+  people-chat demo                                           One-command demo
         """
     )
     
@@ -401,6 +434,10 @@ Examples:
     demo_parser = subparsers.add_parser('demo', help='One-command demo with sample data')
     demo_parser.add_argument('--guided', action='store_true', help='Guided tour showing different capabilities')
     
+    # validate
+    validate_parser = subparsers.add_parser('validate', help='Validate glossary against database schema')
+    validate_parser.add_argument('--glossary', help='Path to glossary YAML file (default: auto-detected from database)')
+    
     args = parser.parse_args()
     
     if args.command is None:
@@ -415,6 +452,7 @@ Examples:
         'stats': cmd_stats,
         'status': cmd_status,
         'demo': cmd_demo,
+        'validate': cmd_validate,
     }
     
     cmd_fn = commands.get(args.command)

@@ -46,12 +46,19 @@ Project skeleton, venv, pyproject.toml, README skeleton, docs.
 - Installed via `pip install -e .` → `people-chat` command available globally
 
 ## Phase 6: Demo Mode
-**Status:** 🔄 Mostly Built (needs polish)
-- `people-chat demo` command exists and works
+**Status:** ✅ Complete | **Date:** 2026-07-28
+- `people-chat demo` command with --guided tour
+- 6 pre-canned queries showing different HR analytics capabilities
 - Auto-loads sample data, starts chat session
 
 ## Phase 7: Documentation & Polish
-**Status:** ⏳ Not Started
+**Status:** ✅ Complete | **Date:** 2026-07-28
+- Comprehensive README with quick start, architecture, features, limitations
+- DECISIONS.md — architecture decision log
+- PHASE_LOG.md — build progress tracking
+- test_pipeline.py — manual smoke test for the full pipeline
+- CONTRIBUTING.md — contribution guidelines
 
 ## Phase 8: Launch
 **Status:** ⏳ Not Started
+- GitHub repository setup, CI/CD, PyPI publishing pending

@@ -25,7 +25,6 @@ dependencies = [
     "plotly>=5.15",
     "openai>=1.0",
     "anthropic>=0.30",
-    "python-dotenv>=1.0",
 ]
 
 [project.optional-dependencies]

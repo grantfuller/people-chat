@@ -55,7 +55,7 @@ PROVIDER_DEFAULTS = {
         "base_url": "https://api.openai.com/v1",
     },
     "anthropic": {
-        "model": "claude-3-haiku-20240307",
+        "model": "claude-3-5-haiku-20241022",
         "base_url": "https://api.anthropic.com",
     },
     "deepseek": {
