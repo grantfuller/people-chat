@@ -29,6 +29,29 @@ DB_PATH = REPO_ROOT / "demo_hr.db"
 if not DB_PATH.exists():
     DB_PATH = REPO_ROOT / "people_chat" / "data" / "demo_hr.db"
 
+
+def _ensure_db() -> Path:
+    """Build the demo DB from committed sample CSVs if missing (cloud-friendly)."""
+    if DB_PATH.exists():
+        return DB_PATH
+    from people_chat.ingestion import ingest
+
+    sample_dir = REPO_ROOT / "people_chat" / "data" / "sample"
+    csv = sample_dir / "employees.csv"
+    if not csv.exists():
+        raise FileNotFoundError(
+            f"Sample data not found at {csv}. Run generate_demo_data.py first."
+        )
+    ingest(str(csv), str(DB_PATH), table_name="employees")
+    try:
+        from people_chat.glossary import generate as gen_glossary
+
+        gen_glossary(str(DB_PATH), "employees", str(DB_PATH.with_suffix(".yaml")))
+    except Exception:  # noqa: BLE001 - glossary is best-effort
+        pass
+    return DB_PATH
+
+
 DEMO_PASSCODE = os.getenv("DEMO_PASSCODE", "cachevalley")
 
 st.set_page_config(page_title="People Chat — HR Data Demo", page_icon="🧑‍💼", layout="wide")
@@ -96,7 +119,8 @@ if question:
     with st.chat_message("assistant"):
         with st.spinner("Generating SQL and querying…"):
             try:
-                result = ask(question, str(DB_PATH))
+                db_path = _ensure_db()
+                result = ask(question, str(db_path))
             except Exception as e:  # noqa: BLE001
                 result = {"success": False, "error": str(e), "explanation": str(e)}
 
