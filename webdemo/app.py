@@ -33,6 +33,27 @@ from people_chat.query_engine import execute_sql  # noqa: E402
 
 DEMO_PASSCODE = os.getenv("DEMO_PASSCODE", "cachevalley")
 
+
+def _load_passcodes() -> tuple[dict[str, str], str | None]:
+    """Load passcodes. Prefers DEMO_PASSCODES (JSON dict: code -> label) for
+    per-prospect tracking; falls back to a single DEMO_PASSCODE string.
+    Returns (map, default_code)."""
+    raw = os.getenv("DEMO_PASSCODES", "")
+    if raw.strip():
+        try:
+            import json
+
+            mapping = json.loads(raw)
+            if isinstance(mapping, dict) and mapping:
+                return mapping, None
+        except Exception:  # noqa: BLE001 - fall through to single-code mode
+            pass
+    single = os.getenv("DEMO_PASSCODE", "cachevalley")
+    return {single: None}, single
+
+
+PASSCODE_MAP, _ = _load_passcodes()
+
 st.set_page_config(page_title="People Chat — HR Data Demo", page_icon="🧑‍💼", layout="wide")
 
 DB_PATH = None  # resolved on first use
@@ -163,12 +184,15 @@ if not st.session_state.authed:
     st.caption("An AI-powered HR data analyst demo. Ask questions in English, get answers from data.")
     code = st.text_input("Demo passcode", type="password", placeholder="Enter the passcode from your outreach email")
     if st.button("Enter demo"):
-        if code == DEMO_PASSCODE:
+        if code in PASSCODE_MAP:
             st.session_state.authed = True
+            st.session_state.visitor_label = PASSCODE_MAP.get(code)
             st.rerun()
         else:
             st.error("Incorrect passcode. (This demo is private — request access for a code.)")
     st.stop()
+
+visitor_label = st.session_state.get("visitor_label")
 
 # ─── Sidebar: BYOK config ────────────────────────────────────────────────────
 with st.sidebar:
@@ -191,7 +215,10 @@ with st.sidebar:
 
 # ─── Header ──────────────────────────────────────────────────────────────────
 st.title("🧑‍💼 People Chat — HR Data Demo")
-st.caption("Synthetic data · 750 fictional employees · Sample questions run free (no key) · Free-text needs your own key")
+if visitor_label:
+    st.caption(f"👋 Welcome, {visitor_label}! · Synthetic data · 750 fictional employees · Sample questions run free (no key) · Free-text needs your own key")
+else:
+    st.caption("Synthetic data · 750 fictional employees · Sample questions run free (no key) · Free-text needs your own key")
 
 # ─── Chat UI ─────────────────────────────────────────────────────────────────
 if "messages" not in st.session_state:
