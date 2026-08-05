@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "AI-powered HR data analyst. Ask questions in English, get answers from your data."
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Grant Fuller"}
 ]
@@ -37,6 +37,9 @@ test = ["pytest>=7.0"]
 
 [project.scripts]
 people-chat = "people_chat.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["people_chat*"]
 
 [tool.ruff]
 line-length = 100
